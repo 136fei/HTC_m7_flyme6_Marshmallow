@@ -26,12 +26,6 @@
 
 
 # static fields
-.field private mAccessControlManager:Lmeizu/security/AccessControlManager;
-
-.field private mActionBarToTop:Z
-
-.field private mInject:Landroid/app/Activity$TintBarInject;
-
 .field private static final DEBUG_LIFECYCLE:Z = false
 
 .field public static final DEFAULT_KEYS_DIALER:I = 0x1
@@ -72,7 +66,11 @@
 
 
 # instance fields
+.field private mAccessControlManager:Lmeizu/security/AccessControlManager;
+
 .field mActionBar:Landroid/app/ActionBar;
+
+.field private mActionBarToTop:Z
 
 .field private mActionModeTypeStarting:I
 
@@ -121,6 +119,8 @@
 .field private mHasCurrentPermissionsRequest:Z
 
 .field private mIdent:I
+
+.field private mInject:Landroid/app/Activity$TintBarInject;
 
 .field private final mInstanceTracker:Ljava/lang/Object;
 
@@ -9730,28 +9730,23 @@
 
     move-result v0
 
-    if-eqz v0, :cond_flyme_0
+    if-eqz v0, :cond_0
 
     invoke-direct/range {p0 .. p2}, Landroid/app/Activity;->startFlymeActivity(Landroid/content/Intent;Landroid/os/Bundle;)V
 
     return-void
 
-    :cond_flyme_0
-
+    :cond_0
     const/4 v0, -0x1
 
-    .line 4208
-    if-eqz p2, :cond_0
+    if-eqz p2, :cond_1
 
-    .line 4209
     invoke-virtual {p0, p1, v0, p2}, Landroid/app/Activity;->startActivityForResult(Landroid/content/Intent;ILandroid/os/Bundle;)V
 
-    .line 4207
     :goto_0
     return-void
 
-    .line 4213
-    :cond_0
+    :cond_1
     invoke-virtual {p0, p1, v0}, Landroid/app/Activity;->startActivityForResult(Landroid/content/Intent;I)V
 
     goto :goto_0
@@ -11651,6 +11646,44 @@
     return v0
 .end method
 
+.method public overridePendingTransition(Landroid/os/Bundle;)V
+    .locals 5
+    .param p1, "options"    # Landroid/os/Bundle;
+
+    .prologue
+    :try_start_0
+    new-instance v1, Landroid/app/FlymeExtIActivityManagerProxy;
+
+    invoke-direct {v1}, Landroid/app/FlymeExtIActivityManagerProxy;-><init>()V
+
+    invoke-static {}, Landroid/app/ActivityManagerNative;->getDefault()Landroid/app/IActivityManager;
+
+    move-result-object v2
+
+    invoke-interface {v2}, Landroid/app/IActivityManager;->asBinder()Landroid/os/IBinder;
+
+    move-result-object v2
+
+    iget-object v3, p0, Landroid/app/Activity;->mToken:Landroid/os/IBinder;
+
+    invoke-virtual {p0}, Landroid/app/Activity;->getPackageName()Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v1, v2, v3, v4, p1}, Landroid/app/FlymeExtIActivityManagerProxy;->overridePendingTransition(Landroid/os/IBinder;Landroid/os/IBinder;Ljava/lang/String;Landroid/os/Bundle;)V
+    :try_end_0
+    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
+
+    :goto_0
+    return-void
+
+    :catch_0
+    move-exception v0
+
+    .local v0, "e":Landroid/os/RemoteException;
+    goto :goto_0
+.end method
+
 .method final scrollForCapture([Landroid/view/MotionEvent;I)V
     .locals 3
     .param p1, "event"    # [Landroid/view/MotionEvent;
@@ -11746,42 +11779,4 @@
     invoke-virtual {v0, p1}, Landroid/view/Window;->setStatusBarIconColor(I)V
 
     return-void
-.end method
-
-.method public overridePendingTransition(Landroid/os/Bundle;)V
-    .locals 5
-    .param p1, "options"    # Landroid/os/Bundle;
-
-    .prologue
-    :try_start_0
-    new-instance v1, Landroid/app/FlymeExtIActivityManagerProxy;
-
-    invoke-direct {v1}, Landroid/app/FlymeExtIActivityManagerProxy;-><init>()V
-
-    invoke-static {}, Landroid/app/ActivityManagerNative;->getDefault()Landroid/app/IActivityManager;
-
-    move-result-object v2
-
-    invoke-interface {v2}, Landroid/app/IActivityManager;->asBinder()Landroid/os/IBinder;
-
-    move-result-object v2
-
-    iget-object v3, p0, Landroid/app/Activity;->mToken:Landroid/os/IBinder;
-
-    invoke-virtual {p0}, Landroid/app/Activity;->getPackageName()Ljava/lang/String;
-
-    move-result-object v4
-
-    invoke-virtual {v1, v2, v3, v4, p1}, Landroid/app/FlymeExtIActivityManagerProxy;->overridePendingTransition(Landroid/os/IBinder;Landroid/os/IBinder;Ljava/lang/String;Landroid/os/Bundle;)V
-    :try_end_0
-    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
-
-    :goto_0
-    return-void
-
-    :catch_0
-    move-exception v0
-
-    .local v0, "e":Landroid/os/RemoteException;
-    goto :goto_0
 .end method

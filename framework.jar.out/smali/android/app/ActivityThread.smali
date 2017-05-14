@@ -9440,7 +9440,7 @@
 
     move-result v8
 
-    if-nez v8, :cond_flyme_0
+    if-nez v8, :cond_0
 
     invoke-virtual {v3}, Landroid/app/ContextImpl;->getReceiverRestrictedContext()Landroid/content/Context;
 
@@ -9449,13 +9449,11 @@
     iget-object v9, p1, Landroid/app/ActivityThread$ReceiverData;->intent:Landroid/content/Intent;
 
     invoke-virtual {v7, v8, v9}, Landroid/content/BroadcastReceiver;->onReceive(Landroid/content/Context;Landroid/content/Intent;)V
-
-    :cond_flyme_0
-
     :try_end_1
     .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_1} :catch_1
     .catchall {:try_start_1 .. :try_end_1} :catchall_0
 
+    :cond_0
     sget-object v8, Landroid/app/ActivityThread;->sCurrentBroadcastIntent:Ljava/lang/ThreadLocal;
 
     invoke-virtual {v8, v11}, Ljava/lang/ThreadLocal;->set(Ljava/lang/Object;)V
@@ -9467,34 +9465,28 @@
 
     move-result-object v8
 
-    if-eqz v8, :cond_0
+    if-eqz v8, :cond_1
 
-    .line 2775
     invoke-virtual {p1}, Landroid/app/ActivityThread$ReceiverData;->finish()V
 
-    .line 2717
-    :cond_0
+    :cond_1
     return-void
 
-    .line 2736
     .end local v1    # "cl":Ljava/lang/ClassLoader;
     .end local v7    # "receiver":Landroid/content/BroadcastReceiver;
     :catch_0
     move-exception v4
 
-    .line 2739
     .local v4, "e":Ljava/lang/Exception;
     invoke-virtual {p1, v5}, Landroid/app/ActivityThread$ReceiverData;->sendFinished(Landroid/app/IActivityManager;)V
 
-    .line 2740
     new-instance v8, Ljava/lang/RuntimeException;
 
-    .line 2741
     new-instance v9, Ljava/lang/StringBuilder;
 
     invoke-direct {v9}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string/jumbo v10, "Unable to instantiate receiver "
+    const-string v10, "Unable to instantiate receiver "
 
     invoke-virtual {v9, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -9550,7 +9542,7 @@
 
     move-result v8
 
-    if-nez v8, :cond_1
+    if-nez v8, :cond_2
 
     .line 2766
     new-instance v8, Ljava/lang/RuntimeException;
@@ -9614,7 +9606,7 @@
 
     .line 2771
     .restart local v4    # "e":Ljava/lang/Exception;
-    :cond_1
+    :cond_2
     sget-object v8, Landroid/app/ActivityThread;->sCurrentBroadcastIntent:Ljava/lang/ThreadLocal;
 
     invoke-virtual {v8, v11}, Ljava/lang/ThreadLocal;->set(Ljava/lang/Object;)V
@@ -18064,7 +18056,6 @@
     .param p4, "reallyResume"    # Z
 
     .prologue
-
     invoke-static/range {p0 .. p0}, Landroid/app/ActivityThread$FlymeInjector;->handleFlymeResumeActivity(Landroid/app/ActivityThread;)V
 
     invoke-virtual {p0}, Landroid/app/ActivityThread;->unscheduleGcIdler()V
@@ -20677,7 +20668,6 @@
     .line 1953
     return-void
 .end method
-
 
 .method handleShrinkMemory(I)V
     .locals 5
