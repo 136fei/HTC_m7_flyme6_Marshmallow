@@ -15,6 +15,10 @@
 
 
 # static fields
+.field private mFlymeConfigCloud:Lcom/android/server/notification/ConfigCloud;
+
+.field private mFlymeRankingController:Lcom/flyme/server/notfication/RankingController;
+
 .field private static final ATT_KEYGUARD:Ljava/lang/String; = "keyguard"
 
 .field private static final ATT_NAME:Ljava/lang/String; = "name"
@@ -1670,7 +1674,7 @@
     :cond_7
     const/16 v15, -0x3e8
 
-    if-eq v14, v15, :cond_8
+    if-eq v14, v15, :cond_flyme_0
 
     iput v14, v8, Lcom/android/server/notification/RankingHelper$Record;->visibility:I
 
@@ -2392,6 +2396,8 @@
     invoke-interface {p1, v8, v3, v4}, Lorg/xmlpull/v1/XmlSerializer;->attribute(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/xmlpull/v1/XmlSerializer;
 
     :cond_3
+    invoke-direct {p0, p1, v2}, Lcom/android/server/notification/RankingHelper;->writeFlymeExtraFields(Lorg/xmlpull/v1/XmlSerializer;Lcom/android/server/notification/RankingHelper$Record;)V
+
     iget v3, v2, Lcom/android/server/notification/RankingHelper$Record;->keyguard:I
 
     if-eq v3, v9, :cond_4
