@@ -933,7 +933,7 @@
 .end method
 
 .method public static needNewResources(II)Z
-    .locals 3
+    .locals 2
     .param p0, "configChanges"    # I
     .param p1, "interestingChanges"    # I
 
