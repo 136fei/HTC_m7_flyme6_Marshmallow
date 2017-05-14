@@ -141,6 +141,8 @@ override_property += \
     ro.flyme.romer=136fei \
     ro.product.model_romer=m7_136fei \
 	ro.product.device=m7 \
+    config.disable_atlas=true \
+    persist.adb.notify=0 \
 
 ##############################################################################
 # The value decides which property you will remove from the build.prop.
