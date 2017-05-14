@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="config_tether_upstream_types">
+        <item>1</item>
+        <item>4</item>
+        <item>7</item>
+        <item>9</item>
+    </integer-array>
+    <string-array name="config_cdma_home_system">
+        <item>64</item>
+        <item>65</item>
+        <item>76</item>
+        <item>77</item>
+        <item>78</item>
+        <item>79</item>
+        <item>80</item>
+        <item>81</item>
+        <item>82</item>
+        <item>83</item>
+    </string-array>
+    <string-array name="config_default_vm_number">
+        <item>*86</item>
+    </string-array>
+    <string-array name="dial_string_replace">
+        <item>*611:+19085594899,</item>
+        <item>*86:+1MDN,</item>
+    </string-array>
+    <string-array name="config_sms_convert_destination_number_support">
+        <item>true</item>
+    </string-array>
+</resources>
